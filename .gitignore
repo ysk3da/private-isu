@@ -18,5 +18,3 @@ portal/tmp
 .vagrant
 
 .DS_Store
-benchmarker/img
-benchmarker/__MACOSX
