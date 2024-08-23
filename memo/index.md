@@ -384,5 +384,27 @@ cat logs/nginx/access.log|alp json -m "/image/.+,/posts/[0-9]+,/@.+"
 
 ## ファイルがあれば返す、なければphpに流す設定をする
 
+~~~sh
+diff --git a/webapp/etc/nginx/conf.d/php.conf b/webapp/etc/nginx/conf.d/php.conf
+index c9cb92a..2ec0971 100644
+--- a/webapp/etc/nginx/conf.d/php.conf
++++ b/webapp/etc/nginx/conf.d/php.conf
+@@ -23,6 +23,11 @@ server {
+         root /public;
+         expires 1d;
+     }
++    location /image/ {
++        root /public;
++        expires 1d;
++        try_files $uri $uri/ /index.php?$query_string;
++    }
+     # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+     location ~ \.php {
+         #fastcgi_split_path_info ^(.+\.php)(/.+)$;
+~~~
 
+nginxを再起動
 
+~~~sh
+docker compose down nginx && docker compose up nginx -d
+~~~
