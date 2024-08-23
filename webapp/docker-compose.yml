@@ -5,6 +5,7 @@ services:
     volumes:
       - ./etc/nginx/conf.d:/etc/nginx/conf.d
       - ./public:/public
+      - ./logs/nginx:/var/log/nginx
     ports:
       - "80:80"
     networks:
@@ -44,7 +45,9 @@ services:
       - "MYSQL_ROOT_PASSWORD=root"
     volumes:
       - mysql:/var/lib/mysql
+      - ./etc/mysql/my.cnf:/etc/mysql/my.cnf
       - ./sql:/docker-entrypoint-initdb.d
+      - ./logs/mysql:/var/log/mysql
     ports:
       - "3306:3306"
     networks:
