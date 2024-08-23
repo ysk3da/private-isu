@@ -312,12 +312,25 @@ slow_query_log_file=/var/log/mysql/mysqlslow.log
 下記を見てみよう
 
 ~~~sh
-pt-query-digest logs/mysql/mysqlslow.log
+pt-query-digest --type slowlog ./logs/mysql/mysqlslow.log
 
 # No events processed.
 ~~~
 
 ?? 一旦おいておく
+
+
+mysql側でslowクエリログをonにした
+https://qiita.com/kondo0602/items/b4c3c84579c8c2c1b3be
+
+パーミッションの関係でlogファイルがアクセスできていない
+
+~~~sh
+mysql-1  | 2024-08-23 07:56:44+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.4.2-1.el9 started.
+mysql-1  | chown: changing ownership of '/var/log/mysql': Permission denied
+mysql-1  | chown: changing ownership of '/var/log/mysql/slow': Permission denied
+mysql-1  | chown: changing ownership of '/var/log/mysql/mysqlslow.log': Permission denied
+~~~
 
 ## 静的ファイルをnginxで配信する?
 
